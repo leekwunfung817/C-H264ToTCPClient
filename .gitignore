@@ -1,1 +1,10 @@
-/.vs/CPosVideoDemo/v16/Browse.VC.db
+/.vs/CPosVideoDemo/v16/*.db
+/.vs/CPosVideoDemo/v16/*.db-wal
+/.vs/CPosVideoDemo/v16/*.opendb
+/CPosVideoDemo/Release/CloudIPC.F6A73560.tlog/*.tlog
+/CPosVideoDemo/Release/CloudIPC.F6A73560.tlog/*.lastbuildstate
+/CPosVideoDemo/Release/*.log
+/CPosVideoDemo/Release/*.recipe
+/CPosVideoDemo/Release/*.iobj
+/CPosVideoDemo/Release/*.ipdb
+/CPosVideoDemo/Release/*.pch

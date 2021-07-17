@@ -4,10 +4,11 @@
 
 #pragma once
 #include "afxwin.h"
-#include "afxmt.h"
+
 #include <string>
 using namespace std;
 using  std::string;
+
 
 // CCPosVideoDemoDlg dialog
 class CCPosVideoDemoDlg : public CDialogEx
@@ -16,16 +17,6 @@ class CCPosVideoDemoDlg : public CDialogEx
 public:
 	CCPosVideoDemoDlg(CWnd* pParent = NULL);	// standard constructor
 
-	//CEdit m_edit_server_url;
-	// CEdit m_edit_server_port;
-
-	CEdit m_edit_debug;
-	void CCPosVideoDemoDlg::debug(const std::string& msg);
-
-	DWORD m_dwSenderThreadId; //播放线程ID
-	afx_msg void SendFrame(LPVOID lpParam);
-	static DWORD WINAPI SendFrameThread(LPVOID lpParam);
-	void CCPosVideoDemoDlg::sendFrameLoop(CString strUrl, CString strPort, LPVOID lpParam);
 
 	BOOL InitSDK();
 	BOOL ExitSDk();
@@ -78,11 +69,15 @@ protected:
 public:
 	afx_msg void OnBnClickedBPreview();
 	afx_msg void OnBnClickedBFrame();
-	
 	CEdit m_edit_url;
 
 	CEdit m_edit_pyIP;
 	CEdit m_edit_pyPort;
+	CEdit m_edit_debug;
+	DWORD m_dwSenderThreadId; //播放线程ID
+	void CCPosVideoDemoDlg::debug(const std::string& msg);
+	void CCPosVideoDemoDlg::sendFrameLoop(LPVOID lpParam);
+	static DWORD WINAPI SendFrameThread(LPVOID lpParam);
 
 	CButton m_check_coud_id;
 	CStatic m_static_video;

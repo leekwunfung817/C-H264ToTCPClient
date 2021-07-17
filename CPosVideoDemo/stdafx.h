@@ -5,6 +5,8 @@
 
 #pragma once
 
+#define _WINSOCK_DEPRECATED_NO_WARNINGS 0
+
 #ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN            // Exclude rarely-used stuff from Windows headers
 #endif

@@ -1,18 +1,24 @@
 
-#define  _WINSOCK_DEPRECATED_NO_WARNINGS 1
+// CPosVideoDemoDlg.cpp : implementation file
+//
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <cstdio>
 #include <string>
+using namespace std;
+using  std::string;
+using  std::wstring;
+
 #include "stdafx.h"
 #include "CPosVideoDemo.h"
+#include "CPosVideoDemoDlg.h"
 #include "afxdialogex.h"
-
-#include "Logger.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
 
 #define ONTIMER_UINT UINT
 #include "NetSdk.h"
@@ -20,14 +26,10 @@
 #include "H264Play.h"
 #pragma comment (lib, "H264Play.lib") 
 
-#define DIB_BUFFER_SIZE 10000000
-
+#define DIB_BUFFER_SIZE 10000000 //定义抓取图像的内在大小, 10MB
 
 // CCPosVideoDemoDlg dialog
-#include "CPosVideoDemoDlg.h"
-using namespace std;
-using  std::string;
-using  std::wstring;
+
 
 std::wstring s2ws(const std::string& s)
 {
@@ -39,6 +41,12 @@ std::wstring s2ws(const std::string& s)
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength,
 		const_cast<wchar_t*>(buf.c_str()), len);
 	return buf;
+}
+
+
+void CCPosVideoDemoDlg::debug(const std::string& msg)
+{
+	m_edit_debug.SetWindowTextW(s2ws(msg).c_str());
 }
 
 
@@ -63,7 +71,7 @@ void CCPosVideoDemoDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, EditCtrl_IPCamIPAddress, m_edit_url);
 	DDX_Control(pDX, EditCtrl_PyServerIP, m_edit_pyIP);
 	DDX_Control(pDX, EditCtrl_PyServerPort, m_edit_pyPort);
-	// IDC_EDIT_URL
+
 	DDX_Control(pDX, EditDebug, m_edit_debug);
 
 	DDX_Control(pDX, IDC_CHECK_CLOUD, m_check_coud_id);
@@ -89,13 +97,20 @@ bool __stdcall MessCallBack(long lLoginID, unsigned char *pBuf, unsigned long dw
 		SDK_AlarmInfo alarmInfo;
 		memcpy(&alarmInfo, pBuf, dwBufLen);
 		//alarm information
+
 	}
+	else
+	{
+
+	}
+
 	return true;
 }
 
 //device disconnect callback
 void __stdcall DisConnectBackCallFunc(long lLoginID, char *pchDVRIP, long nDVRPort, unsigned long dwUser)
 {
+
 	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)dwUser;
 	if (pThis == NULL)
 	{
@@ -108,13 +123,14 @@ void __stdcall DisConnectBackCallFunc(long lLoginID, char *pchDVRIP, long nDVRPo
 //initialize the SDK
 BOOL CCPosVideoDemoDlg::InitSDK()
 {
-
-
 	//initialize
 	BOOL bResult = H264_DVR_Init(DisConnectBackCallFunc, (DWORD)this);
+
 	//he messages received in SDK from DVR which need to upload， such as alarm information，diary information，may do through callback function
 	H264_DVR_SetDVRMessCallBack(MessCallBack, (DWORD)this);
+
 	H264_DVR_SetConnectTime(1000, 3);
+
 	return bResult;
 }
 
@@ -127,10 +143,6 @@ BOOL CCPosVideoDemoDlg::ExitSDk()
 
 
 
-void CCPosVideoDemoDlg::debug(const std::string& msg)
-{
-	m_edit_debug.SetWindowTextW(s2ws(msg).c_str());
-}
 
 
 
@@ -145,6 +157,8 @@ BOOL CCPosVideoDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
+	//m_edit_url.SetWindowTextW(_T("192.168.1.10"));
+
 
 	int nArgs = 0;
 
@@ -153,36 +167,24 @@ BOOL CCPosVideoDemoDlg::OnInitDialog()
 	CString strArg2(szAarglist[1]);
 	CString strArg3(szAarglist[2]);
 	CString strArg4(szAarglist[3]);
-
 	CT2CA psz_app(strArg1);
 	CT2CA psz_ipv4(strArg2);
 	CT2CA psz_port(strArg3);
 	CT2CA psz_rtsp_url(strArg4);
-
 	std::string exeName(psz_app);
 	std::string py_ip(psz_ipv4);
 	std::string py_port(psz_port);
 	std::string ipcam_ip(psz_rtsp_url);
-
-
-	//m_edit_url.SetWindowTextW();
-	 
 	char buff[100];
-	sprintf(buff, "szAarglist[0]=%s,%s,%s,%s length %d\n", szAarglist[0], szAarglist[1], szAarglist[2], szAarglist[3], nArgs);
+	sprintf_s(buff, "szAarglist[0]=%s,%s,%s,%s length %d\n", szAarglist[0], szAarglist[1], szAarglist[2], szAarglist[3], nArgs);
 	debug(buff);
-	//m_edit_url.SetWindowTextW(_T("192.168.169.6"));
-	//m_edit_url.SetWindowTextW(_T("192.168.169.5"));
-	//m_edit_url.SetWindowTextW(_T("192.168.169.117"));
 	m_edit_pyIP.SetWindowTextW(s2ws(py_ip).c_str());
 	m_edit_pyPort.SetWindowTextW(s2ws(py_port).c_str());
 	m_edit_url.SetWindowTextW(s2ws(ipcam_ip).c_str());
-
-	// Ivan addition to create thread for sent the capturing
-	CreateThread(NULL, 0, SendFrameThread, this, 0, &m_dwSenderThreadId);
-
+	
 	InitSDK();
 
-	OnBnClickedBPreview();
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -230,6 +232,122 @@ void CCPosVideoDemoDlg::ReConnect(LONG lLoginID, char *pchDVRIP, LONG nDVRPort)
 }
 
 
+void CCPosVideoDemoDlg::sendFrameLoop(LPVOID lpParam)
+{
+	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)lpParam;
+
+	CString strUrl;
+	CString strPort;
+	m_edit_pyIP.GetWindowTextW(strUrl);
+	m_edit_pyPort.GetWindowTextW(strPort);
+
+	char buff[100];
+	debug("while true sendFrameLoop");
+	while (true) {
+		//sprintf_s(buff, "Start sendFrameLoop\n");
+		//debug(buff);
+		SOCKET sockClient;
+		SOCKADDR_IN addrServer;
+		//debug("socket");
+		sockClient = socket(AF_INET, SOCK_STREAM, 0);
+		char chServer[256] = { 0 };
+		char chClientId[256] = { 0 };
+		//debug("WideCharToMultiByte");
+		WideCharToMultiByte(CP_ACP, 0, strUrl, -1, chServer, sizeof(chServer) - 1, NULL, NULL);
+		int timeout = 30;
+		if (timeout < 1) timeout = 1;
+		addrServer.sin_addr.s_addr = inet_addr((const char*)chServer);
+		// inet_pton(AF_INET, (const char*)chServer, buff);
+		addrServer.sin_family = AF_INET;
+		addrServer.sin_port = htons(_wtoi(strPort));
+		struct timeval timeoutRecv = { 0 };
+		timeoutRecv.tv_sec = timeout * 1000;
+		//debug("setsockopt");
+		setsockopt(sockClient, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeoutRecv, sizeof(timeoutRecv));
+		setsockopt(sockClient, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeoutRecv, sizeof(timeoutRecv));
+
+		debug("Connect to Python");
+		int iResult = connect(sockClient, (SOCKADDR*)&addrServer, sizeof(SOCKADDR));
+		Sleep(3);
+
+
+		char* buf = 0;
+		buf = new char[DIB_BUFFER_SIZE];
+		int size = 0;
+		debug("CaptureBmpToRam");
+		size = CaptureBmpToRam(buf, DIB_BUFFER_SIZE);
+
+
+		if (iResult == NO_ERROR)
+		{
+			debug("Python connect success");
+			WSADATA wsaData;
+			WSAStartup(MAKEWORD(2, 2), &wsaData);
+			int rc = 0;
+			size_t count = 0;
+
+
+			rc = send(sockClient, buf, size, 0);
+			if (rc < 0)
+			{
+				//OutputDebugStringW(L"Sent complete\n");
+			}
+			char* ptr = 0;
+			do {
+				if (size <= 0)
+				{
+					break;
+				}
+				ptr = buf;
+				int zero_cnt = 0;
+				do {
+					rc = send(sockClient, ptr, size, 0);
+					if (rc < 0)
+					{
+						break;
+					}
+					if (rc == 0)
+					{
+						zero_cnt++;
+						if (zero_cnt >= 3) break;
+					}
+					else
+					{
+						zero_cnt = 0;
+					}
+
+					ptr += rc;
+					count += size;
+					size -= rc;
+				} while (size);
+			} while (rc > 0);
+			rc = send(sockClient, buf, 1, 0);
+
+			WSACleanup();
+			debug("End sendFrameLoop");
+		}
+		else {
+			debug("Python Connect fail");
+			Sleep(1000);
+		}
+
+		delete[]buf;
+
+		closesocket(sockClient);
+		shutdown(sockClient, SD_SEND);
+	}
+}
+
+DWORD WINAPI CCPosVideoDemoDlg::SendFrameThread(LPVOID lpParam)
+{
+	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)lpParam;
+	while (1) {
+		pThis->sendFrameLoop(lpParam);
+	}
+	return 1;
+}
+
+
 void CCPosVideoDemoDlg::OnBnClickedBPreview()
 {
 	//m_check_coud_id
@@ -239,7 +357,10 @@ void CCPosVideoDemoDlg::OnBnClickedBPreview()
 
 
 	ConnectRealPlay(0, 0, 0, strip, port, _T("admin"), _T(""), m_check_coud_id.GetCheck(), m_static_video.m_hWnd);
+	CreateThread(NULL, 0, SendFrameThread, this, 0, &m_dwSenderThreadId);
+
 }
+
 
 void CCPosVideoDemoDlg::OnBnClickedBFrame()
 {
@@ -247,13 +368,16 @@ void CCPosVideoDemoDlg::OnBnClickedBFrame()
 	buf = new char[DIB_BUFFER_SIZE];
 	int size = 0;
 	size = CaptureBmpToRam(buf, DIB_BUFFER_SIZE);
+
 	if (size)
 	{
 		CString str = _T("bmp(*.bmp)|*.bmp|All Files (*.*)|*.*||");
 		CFileDialog dlgOpen(FALSE, _T(".bmp"), _T(""), NULL, str);
+
 		if (dlgOpen.DoModal() == IDOK)
 		{
 			CString strFile = dlgOpen.GetPathName();
+			//保存到文件中
 			CFile f;
 			BOOL r = FALSE;
 			if (f.Open(strFile, CFile::modeCreate | CFile::modeWrite))
@@ -262,9 +386,14 @@ void CCPosVideoDemoDlg::OnBnClickedBFrame()
 				f.Write(buf, size);
 				f.Close();
 			}
+
 		}
 	}
+
+
 	delete[]buf;
+
+
 }
 
 
@@ -581,111 +710,4 @@ void CCPosVideoDemoDlg::OnClose()
 
 
 	CDialogEx::OnClose();
-}
-
-
-
-
-void CCPosVideoDemoDlg::sendFrameLoop(CString strUrl, CString strPort, LPVOID lpParam)
-{
-	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)lpParam;
-	char buff[100];
-	while (true) {
-		SOCKET sockClient;
-		SOCKADDR_IN addrServer;
-		sockClient = socket(AF_INET, SOCK_STREAM, 0);
-		char chServer[256] = { 0 };
-		char chClientId[256] = { 0 };
-		WideCharToMultiByte(CP_ACP, 0, strUrl, -1, chServer, sizeof(chServer) - 1, NULL, NULL);
-		int timeout = 30;
-		if (timeout < 1) timeout = 1;
-		addrServer.sin_addr.s_addr = inet_addr((const char*)chServer);
-		// inet_pton(AF_INET, (const char*)chServer, buff);
-		addrServer.sin_family = AF_INET;
-		addrServer.sin_port = htons(_wtoi(strPort));
-		struct timeval timeoutRecv = { 0 };
-		timeoutRecv.tv_sec = timeout * 1000;
-		setsockopt(sockClient, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeoutRecv, sizeof(timeoutRecv));
-		setsockopt(sockClient, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeoutRecv, sizeof(timeoutRecv));
-		int iResult = connect(sockClient, (SOCKADDR*)&addrServer, sizeof(SOCKADDR));
-		if (iResult == NO_ERROR)
-		{
-			WSADATA wsaData;
-			WSAStartup(MAKEWORD(2, 2), &wsaData);
-			int rc = 0;
-			size_t count = 0;
-
-
-
-
-			char* buf = 0;
-			buf = new char[DIB_BUFFER_SIZE];
-			int size = 0;
-			size = CaptureBmpToRam(buf, DIB_BUFFER_SIZE);
-
-			rc = send(sockClient, buf, size, 0);
-			if (rc < 0)
-			{
-				//OutputDebugStringW(L"Sent complete\n");
-			}
-			char* ptr = 0;
-			do {
-				if (size <= 0)
-				{
-					break;
-				}
-				ptr = buf;
-				int zero_cnt = 0;
-				do {
-					rc = send(sockClient, ptr, size, 0);
-					if (rc < 0)
-					{
-						break;
-					}
-					if (rc == 0)
-					{
-						zero_cnt++;
-						if (zero_cnt >= 3) break;
-					}
-					else
-					{
-						zero_cnt = 0;
-					}
-
-					ptr += rc;
-					count += size;
-					size -= rc;
-				} while (size);
-			} while (rc > 0);
-			rc = send(sockClient, buf, 1, 0);
-
-			delete[]buf;
-		}
-		closesocket(sockClient);
-		WSACleanup();
-		shutdown(sockClient, SD_SEND);
-	}
-}
-
-void CCPosVideoDemoDlg::SendFrame(LPVOID lpParam)
-{
-	char buff[100];
-	sprintf(buff, "SendFrame \n");
-	debug(buff);
-	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)lpParam;
-	CString strUrl;
-	CString strPort;
-	m_edit_pyIP.GetWindowTextW(strUrl);
-	m_edit_pyPort.GetWindowTextW(strPort);
-
-	pThis->sendFrameLoop(strUrl, strPort, lpParam);
-}
-
-DWORD WINAPI CCPosVideoDemoDlg::SendFrameThread(LPVOID lpParam)
-{
-	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)lpParam;
-	while (1) {
-		pThis->SendFrame(lpParam);
-	}
-	return 1;
 }

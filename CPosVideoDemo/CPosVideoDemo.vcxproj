@@ -14,6 +14,7 @@
     <ProjectGuid>{F6A73560-9564-40E1-951E-4E8397497298}</ProjectGuid>
     <RootNamespace>CPosVideoDemo</RootNamespace>
     <Keyword>MFCProj</Keyword>
+    <ProjectName>CloudIPCameraClient</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -78,7 +79,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>false</SDLCheck>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -104,7 +105,6 @@
     <ClInclude Include="CPosVideoDemo.h" />
     <ClInclude Include="CPosVideoDemoDlg.h" />
     <ClInclude Include="H264Play.h" />
-    <ClInclude Include="Logger.h" />
     <ClInclude Include="netsdk.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdarg>
 #include <string>
+#include "stdafx.h"
 using namespace std;
 #define LOGGER CLogger::GetLogger()
 /**
