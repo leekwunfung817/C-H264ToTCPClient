@@ -98,7 +98,6 @@ bool __stdcall MessCallBack(long lLoginID, unsigned char *pBuf, unsigned long dw
 		SDK_AlarmInfo alarmInfo;
 		memcpy(&alarmInfo, pBuf, dwBufLen);
 		//alarm information
-
 	}
 	else
 	{
@@ -151,6 +150,7 @@ BOOL CCPosVideoDemoDlg::ExitSDk()
 
 BOOL CCPosVideoDemoDlg::OnInitDialog()
 {
+	printf("OnInitDialog start\n");
 	CDialogEx::OnInitDialog();
 
 	// Set the icon for this dialog.  The framework does this automatically
@@ -166,23 +166,23 @@ BOOL CCPosVideoDemoDlg::OnInitDialog()
 	LPWSTR* szAarglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
 	CString strArg1(szAarglist[0]);
 	CString strArg2(szAarglist[1]);
-	//CString strArg3(szAarglist[2]);
-	//CString strArg4(szAarglist[3]);
+	CString strArg3(szAarglist[2]);
+	CString strArg4(szAarglist[3]);
 	CT2CA psz_app(strArg1);
 	CT2CA psz_rtsp_url(strArg2);
-	//CT2CA psz_ipv4(strArg3);
-	//CT2CA psz_port(strArg4);
+	CT2CA psz_ipv4(strArg3);
+	CT2CA psz_port(strArg4);
 	std::string exeName(psz_app);
-	//std::string py_ip(psz_ipv4);
-	//std::string py_port(psz_port);
+	std::string py_ip(psz_ipv4);
+	std::string py_port(psz_port);
 	std::string ipcam_ip(psz_rtsp_url);
 	char buff[100];
 	sprintf_s(buff, "szAarglist[0]=%s,%s,%s,%s length %d\n", szAarglist[0], szAarglist[1], 
-		//szAarglist[2], szAarglist[3], 
+		szAarglist[2], szAarglist[3], 
 		nArgs);
 	debug(buff);
-	//m_edit_pyIP.SetWindowTextW(s2ws(py_ip).c_str());
-	//m_edit_pyPort.SetWindowTextW(s2ws(py_port).c_str());
+	m_edit_pyIP.SetWindowTextW(s2ws(py_ip).c_str());
+	m_edit_pyPort.SetWindowTextW(s2ws(py_port).c_str());
 	m_edit_url.SetWindowTextW(s2ws(ipcam_ip).c_str());
 	
 	InitSDK();
