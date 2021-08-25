@@ -57,7 +57,7 @@ typedef int HFONT;
 #endif
 
 
-#define  FUNC_MAX_PORT 500              //×î´ó²¥·ÅÍ¨µÀÊý
+#define  FUNC_MAX_PORT 500              //ï¿½ï¿½ó²¥·ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
 
 #define TALK_PORT	499
 #define TALK_PCM_PORT 500
@@ -70,37 +70,37 @@ typedef int HFONT;
 #define TIMER_1 1 //Only 16 timers for every process.Default TIMER;
 #define TIMER_2 2 //Not limit;But the precision less than TIMER_1; 
 
-//»º³åÀàÐÍ
-#define BUF_VIDEO_SRC 1    //ÊÓÆµÔ´»º³å        
-#define BUF_AUDIO_SRC 2    //ÒôÆµÔ´»º³å
-#define BUF_VIDEO_RENDER 3  //½âÂëºóÊÓÆµÊý¾Ý»º³å
-#define BUF_AUDIO_RENDER 4  //½âÂëºóÒôÆµÊý¾Ý»º³å
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define BUF_VIDEO_SRC 1    //ï¿½ï¿½ÆµÔ´ï¿½ï¿½ï¿½ï¿½        
+#define BUF_AUDIO_SRC 2    //ï¿½ï¿½ÆµÔ´ï¿½ï¿½ï¿½ï¿½
+#define BUF_VIDEO_RENDER 3  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
+#define BUF_AUDIO_RENDER 4  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
 
-//´íÎóÀàÐÍ
-#define	H264_PLAY_NOERROR               0           //Ã»ÓÐ´íÎó£»
-#define H264_PLAY_PARA_OVER             1           //ÊäÈë²ÎÊý·Ç·¨£»
-#define H264_PLAY_ORDER_ERROR           2           //µ÷ÓÃË³Ðò²»¶Ô£»
-#define H264_PLAY_TIMER_ERROR           3           //¶àÃ½ÌåÊ±ÖÓÉèÖÃÊ§°Ü£»
-#define H264_PLAY_DEC_VIDEO_ERROR       4	          //ÊÓÆµ½âÂëÊ§°Ü£»
-#define H264_PLAY_DEC_AUDIO_ERROR       5	          //ÒôÆµ½âÂëÊ§°Ü£»
-#define H264_PLAY_ALLOC_MEMORY_ERROR    6		       	//·ÖÅäÄÚ´æÊ§°Ü£»
-#define H264_PLAY_OPEN_FILE_ERROR       7			   		//ÎÄ¼þ²Ù×÷Ê§°Ü£»
-#define H264_PLAY_CREATE_OBJ_ERROR      8	          //´´½¨Ïß³ÌÊÂ¼þµÈÊ§°Ü£»
-#define H264_PLAY_CREATE_DDRAW_ERROR		9		       	//´´½¨directDrawÊ§°Ü£»
-#define H264_PLAY_CREATE_OFFSCREEN_ERROR	10		    //´´½¨ºó¶Ë»º´æÊ§°Ü£»
-#define H264_PLAY_BUF_OVER              11	        //»º³åÇøÂú£¬ÊäÈëÁ÷Ê§°Ü£»
-#define H264_PLAY_CREATE_SOUND_ERROR    12		      //´´½¨ÒôÆµÉè±¸Ê§°Ü£»
-#define H264_PLAY_SET_VOLUME_ERROR      13	        //ÉèÖÃÒôÁ¿Ê§°Ü£»
-#define H264_PLAY_SUPPORT_FILE_ONLY     14		      //Ö»ÄÜÔÚ²¥·ÅÎÄ¼þÊ±²ÅÄÜÊ¹ÓÃ´Ë½Ó¿Ú£»
-#define H264_PLAY_SUPPORT_STREAM_ONLY   15		      //Ö»ÄÜÔÚ²¥·ÅÁ÷Ê±²ÅÄÜÊ¹ÓÃ´Ë½Ó¿Ú£»
-#define H264_PLAY_SYS_NOT_SUPPORT       16		      //ÏµÍ³²»Ö§³Ö£¬½âÂëÆ÷Ö»ÄÜ¹¤×÷ÔÚPentium 3ÒÔÉÏ£»
-#define H264_PLAY_FILEHEADER_UNKNOWN    17		      //Ã»ÓÐÎÄ¼þÍ·£»
-#define H264_PLAY_VERSION_INCORRECT     18	        //½âÂëÆ÷ºÍ±àÂëÆ÷°æ±¾²»¶ÔÓ¦£»
-#define H264_PLAY_INIT_DECODER_ERROR    19		      //³õÊ¼»¯½âÂëÆ÷Ê§°Ü£»
-#define H264_PLAY_CHECK_FILE_ERROR      20		      //ÎÄ¼þÌ«¶Ì»òÂëÁ÷ÎÞ·¨Ê¶±ð£»
-#define H264_PLAY_INIT_TIMER_ERROR      21		      //³õÊ¼»¯¶àÃ½ÌåÊ±ÖÓÊ§°Ü£»
-#define H264_PLAY_BLT_ERROR             22		      //Î»¿½±´Ê§°Ü£»
-#define H264_PLAY_UPDATE_ERROR          23			   	//ÏÔÊ¾overlayÊ§°Ü£»
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define	H264_PLAY_NOERROR               0           //Ã»ï¿½Ð´ï¿½ï¿½ï¿½
+#define H264_PLAY_PARA_OVER             1           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½
+#define H264_PLAY_ORDER_ERROR           2           //ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ò²»¶Ô£ï¿½
+#define H264_PLAY_TIMER_ERROR           3           //ï¿½ï¿½Ã½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_DEC_VIDEO_ERROR       4	          //ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_DEC_AUDIO_ERROR       5	          //ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_ALLOC_MEMORY_ERROR    6		       	//ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_OPEN_FILE_ERROR       7			   		//ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_CREATE_OBJ_ERROR      8	          //ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_CREATE_DDRAW_ERROR		9		       	//ï¿½ï¿½ï¿½ï¿½directDrawÊ§ï¿½Ü£ï¿½
+#define H264_PLAY_CREATE_OFFSCREEN_ERROR	10		    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_BUF_OVER              11	        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_CREATE_SOUND_ERROR    12		      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½è±¸Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_SET_VOLUME_ERROR      13	        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_SUPPORT_FILE_ONLY     14		      //Ö»ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã´Ë½Ó¿Ú£ï¿½
+#define H264_PLAY_SUPPORT_STREAM_ONLY   15		      //Ö»ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã´Ë½Ó¿Ú£ï¿½
+#define H264_PLAY_SYS_NOT_SUPPORT       16		      //ÏµÍ³ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½Pentium 3ï¿½ï¿½ï¿½Ï£ï¿½
+#define H264_PLAY_FILEHEADER_UNKNOWN    17		      //Ã»ï¿½ï¿½ï¿½Ä¼ï¿½Í·ï¿½ï¿½
+#define H264_PLAY_VERSION_INCORRECT     18	        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½
+#define H264_PLAY_INIT_DECODER_ERROR    19		      //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_CHECK_FILE_ERROR      20		      //ï¿½Ä¼ï¿½Ì«ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½Ê¶ï¿½ï¿½
+#define H264_PLAY_INIT_TIMER_ERROR      21		      //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½Ê±ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_BLT_ERROR             22		      //Î»ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½
+#define H264_PLAY_UPDATE_ERROR          23			   	//ï¿½ï¿½Ê¾overlayÊ§ï¿½Ü£ï¿½
 
 
 //Max display regions.
@@ -134,16 +134,16 @@ typedef int HFONT;
 #define T_YV12		3
 #define T_RGB32		7
 
-//ÏµÍ³Ö§³ÖµÄ¹¦ÄÜ£¬ÓÃÓÚ°´Î»±íÊ¾ÏµÍ³¹¦ÄÜ
-#define SUPPORT_DDRAW		1			// Ö§³ÖDIRECTDRAW£»Èç¹û²»Ö§³Ö£¬Ôò²¥·ÅÆ÷²»ÄÜ¹¤×÷¡£
-#define SUPPORT_BLT         2			// ÏÔ¿¨Ö§³ÖBLT²Ù×÷£»Èç¹û²»Ö§³Ö£¬Ôò²¥·ÅÆ÷²»ÄÜ¹¤×÷
-#define SUPPORT_BLTFOURCC   4			// ÏÔ¿¨BLTÖ§³ÖÑÕÉ«×ª»»£»
-#define SUPPORT_BLTSHRINKX  8			// ÏÔ¿¨BLTÖ§³ÖXÖáËõÐ¡£»
-#define SUPPORT_BLTSHRINKY  16		// ÏÔ¿¨BLTÖ§³ÖYÖáËõÐ¡£»
-#define SUPPORT_BLTSTRETCHX 32		// ÏÔ¿¨BLTÖ§³ÖXÖá·Å´ó£»
-#define SUPPORT_BLTSTRETCHY 64		// ÏÔ¿¨BLTÖ§³ÖYÖá·Å´ó£»
-#define SUPPORT_SSE         128		// CPUÖ§³ÖSSEÖ¸Áî,Intel Pentium3ÒÔÉÏÖ§³ÖSSEÖ¸Áî£»
-#define SUPPORT_MMX			256		// CPUÖ§³ÖMMXÖ¸Áî¼¯¡£
+//ÏµÍ³Ö§ï¿½ÖµÄ¹ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ú°ï¿½Î»ï¿½ï¿½Ê¾ÏµÍ³ï¿½ï¿½ï¿½ï¿½
+#define SUPPORT_DDRAW		1			// Ö§ï¿½ï¿½DIRECTDRAWï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ò²¥·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½
+#define SUPPORT_BLT         2			// ï¿½Ô¿ï¿½Ö§ï¿½ï¿½BLTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½ï¿½ò²¥·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
+#define SUPPORT_BLTFOURCC   4			// ï¿½Ô¿ï¿½BLTÖ§ï¿½ï¿½ï¿½ï¿½É«×ªï¿½ï¿½ï¿½ï¿½
+#define SUPPORT_BLTSHRINKX  8			// ï¿½Ô¿ï¿½BLTÖ§ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
+#define SUPPORT_BLTSHRINKY  16		// ï¿½Ô¿ï¿½BLTÖ§ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
+#define SUPPORT_BLTSTRETCHX 32		// ï¿½Ô¿ï¿½BLTÖ§ï¿½ï¿½Xï¿½ï¿½Å´ï¿½
+#define SUPPORT_BLTSTRETCHY 64		// ï¿½Ô¿ï¿½BLTÖ§ï¿½ï¿½Yï¿½ï¿½Å´ï¿½
+#define SUPPORT_SSE         128		// CPUÖ§ï¿½ï¿½SSEÖ¸ï¿½ï¿½,Intel Pentium3ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½SSEÖ¸ï¿½î£»
+#define SUPPORT_MMX			256		// CPUÖ§ï¿½ï¿½MMXÖ¸ï¿½î¼¯ï¿½ï¿½
 
 typedef enum _MEDIA_FILE_TYPE
 {
@@ -174,11 +174,11 @@ typedef struct{
 
 // Frame Info
 typedef struct{
-	long nWidth;		// »­Ãæ¿í£¬µ¥Î»ÏñËØ¡£Èç¹ûÊÇÒôÆµÊý¾ÝÔòÎª0£»
-	long nHeight;		// »­Ãæ¸ß¡£Èç¹ûÊÇÒôÆµÊý¾ÝÔòÎª0£»
-	long nStamp;		// Ê±±êÐÅÏ¢£¬µ¥Î»ºÁÃë¡£
-	long nType;			// Êý¾ÝÀàÐÍ£¬T_AUDIO16£¬T_RGB32£¬ T_YV12£¬Ïê¼ûºê¶¨ÒåËµÃ÷¡£
-	long nFrameRate;	// ±àÂëÊ±²úÉúµÄÍ¼ÏñÖ¡ÂÊ¡£
+	long nWidth;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ø¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½
+	long nHeight;		// ï¿½ï¿½ï¿½ï¿½ß¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½
+	long nStamp;		// Ê±ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ë¡£
+	long nType;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½T_AUDIO16ï¿½ï¿½T_RGB32ï¿½ï¿½ T_YV12ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê¶¨ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½
+	long nFrameRate;	// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ö¡ï¿½Ê¡ï¿½
 }FRAME_INFO;
 
 typedef struct 
@@ -190,7 +190,7 @@ typedef struct
 	long nReserved;
 }FRAME_TYPE;
 
-/// ÂëÁ÷ÀàÐÍ
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum ENCODE_TYPE
 {
 	StreamTypeEmpty = 0,
@@ -201,7 +201,7 @@ enum ENCODE_TYPE
 	StreamTypeStd = 8
 };
 
-/// Í¼ÏñÖ¡ÀàÐÍ
+/// Í¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½
 enum VIDEO_FRAME_TYPE
 {
 	FrameTypeUnknown = 0,
@@ -210,7 +210,7 @@ enum VIDEO_FRAME_TYPE
 	FrameTypeData = 3,
 };
 
-/// Í¼ÏñÖ¡×ÓÀàÐÍ
+/// Í¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum VIDEO_FRAME_SUB_TYPE
 {
 	FrameSubTypeIFrame = 0,
@@ -224,31 +224,31 @@ enum VIDEO_FRAME_SUB_TYPE
 enum DATA_FRAME_SUB_TYPE
 {
 	DataFrameSubType_Normal,
-	DataFrameSubType_VehicleInfo,							//³µÁ¾ÐÅÏ¢
-	DataFrameSubType_StorageV4_IndexInfo,		//StorageV4µÄË÷ÒýÐÅÏ¢
-	DataFrameSubType_FishEyeHardAdjust,			//ÓãÑÛÉè±¸(Ó²Ð£Õý)
-	DataFrameSubType_FishEyeSoftAdjust,			//ÓãÑÛ¾µÍ·²ÎÊý£¨ÈíÐ£Õý£©
-	DataFrameSubType_DistortAdjust,						//»û±äÐ£Õý²ÎÊý
-	DataFrameSubType_VirtualIFrameMask,				//ÐéÄâIÖ¡±êÊ¶
-	DataFrameSubType_VideoAnalyseRule,				//ÖÇÄÜ·ÖÎö¹æÔò
-	DataFrameSubType_VideoAnalyseAlarm,			//ÖÇÄÜ·ÖÎö±¨¾¯
-	DataFrameSubType_FaceAreaInfo,						//ÈËÁ³Î»ÖÃÐÅÏ¢
+	DataFrameSubType_VehicleInfo,							//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	DataFrameSubType_StorageV4_IndexInfo,		//StorageV4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	DataFrameSubType_FishEyeHardAdjust,			//ï¿½ï¿½ï¿½ï¿½ï¿½è±¸(Ó²Ð£ï¿½ï¿½)
+	DataFrameSubType_FishEyeSoftAdjust,			//ï¿½ï¿½ï¿½Û¾ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½
+	DataFrameSubType_DistortAdjust,						//ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DataFrameSubType_VirtualIFrameMask,				//ï¿½ï¿½ï¿½ï¿½IÖ¡ï¿½ï¿½Ê¶
+	DataFrameSubType_VideoAnalyseRule,				//ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DataFrameSubType_VideoAnalyseAlarm,			//ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	DataFrameSubType_FaceAreaInfo,						//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ï¢
 	DataFrameSubType_Num,
 };
 
 typedef struct 
 {
-	unsigned char *pHeader;				///< Ö¡Êý¾Ý»º³åÆðÊ¼µØÖ·
+	unsigned char *pHeader;				///< Ö¡ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
 	unsigned char *pContent;
 	unsigned long nLength;
 	unsigned long nFrameLength;
 
-	unsigned int nType;                ///< ¼ûVIDEO_FRAME_TYPE
-	unsigned int nSubType;             ///< ¼ûVIDEO_FRAME_SUB_TYPE
+	unsigned int nType;                ///< ï¿½ï¿½VIDEO_FRAME_TYPE
+	unsigned int nSubType;             ///< ï¿½ï¿½VIDEO_FRAME_SUB_TYPE
 
-	unsigned int nEncodeType;          ///< ¼ûENCODE_TYPE
+	unsigned int nEncodeType;          ///< ï¿½ï¿½ENCODE_TYPE
 
-	unsigned long nYear;				///< Ö¡Ê±¼ä´Á
+	unsigned long nYear;				///< Ö¡Ê±ï¿½ï¿½ï¿½
 	unsigned long nMonth;
 	unsigned long nDay;
 	unsigned long nHour;
@@ -256,81 +256,81 @@ typedef struct
 	unsigned long nSecond;
 	unsigned long nTimeStamp;	
 
-	unsigned int  nFrameRate;			///< ÊÓÆµÍ¼ÏñÖ¡ÂÊ
-	int nWidth;							///< ÊÓÆµÍ¼Ïñ´óÐ¡£¬¿í¶ÈºÍ¸ß¶È
+	unsigned int  nFrameRate;			///< ï¿½ï¿½ÆµÍ¼ï¿½ï¿½Ö¡ï¿½ï¿½
+	int nWidth;							///< ï¿½ï¿½ÆµÍ¼ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ÈºÍ¸ß¶ï¿½
 	int nHeight;
 	unsigned long nRequence;
 
 	unsigned int nChannels;
-	unsigned int nBitsPerSample;		///< ÒôÆµ²ÉÑùÎ»Éî
-	unsigned int nSamplesPerSecond;		///< ÒôÆµ²ÉÑùÂÊ
+	unsigned int nBitsPerSample;		///< ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	unsigned int nSamplesPerSecond;		///< ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	unsigned long nParam1;		// À©Õ¹ÓÃ
-	unsigned long nParam2;		// À©Õ¹ÓÃ
+	unsigned long nParam1;		// ï¿½ï¿½Õ¹ï¿½ï¿½
+	unsigned long nParam2;		// ï¿½ï¿½Õ¹ï¿½ï¿½
 } VIDEO_FRAME_INFO;
 
 
-//×ÖÌåÀàÐÍ£¬Ä¿Ç°Ö»Ö§³ÖÕâÐ©
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½Ä¿Ç°Ö»Ö§ï¿½ï¿½ï¿½ï¿½Ð©
 typedef enum 
 {
 	OSD_TXT_FONT_ARIAL = 1,
 	OSD_TXT_FONT_SERIF,
 	OSD_TXT_FONT_SANS,
 	
-	OSD_TXT_FONT_SIMSUN = 101,  // ÖÐÎÄ×ÖÌå£¬ËÎÌå
+	OSD_TXT_FONT_SIMSUN = 101,  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£¬ï¿½ï¿½ï¿½ï¿½
 	OSD_TXT_FONT_SIMHEI
 } DEFAULT_OSD_TXT_FONT;
 
 typedef struct
 {
-	int pos_x;			//Ïà¶ÔÎ»ÖÃ(°Ù·Ö±È)
+	int pos_x;			//ï¿½ï¿½ï¿½Î»ï¿½ï¿½(ï¿½Ù·Ö±ï¿½)
 	int pos_y;
-	COLORREF color;		//×ÖÌåÑÕÉ«
+	COLORREF color;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 	char text[256];
 	DEFAULT_OSD_TXT_FONT font_type;
-	int font_size;		//ÒÔ´°¿ÚµÄ°Ù·Ö±ÈÀ´±íÊ¾
-	HFONT out_ft;		//´´½¨µÄ×ÖÌå¶ÔÏó
-	int isBold;			//ÊÇ·ñ´ÖÌå
-	int isTransparent;	//ÊÇ·ñÍ¸Ã÷µ×É«
-	COLORREF bkColor;	//±³¾°É«
+	int font_size;		//ï¿½Ô´ï¿½ï¿½ÚµÄ°Ù·Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+	HFONT out_ft;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int isBold;			//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+	int isTransparent;	//ï¿½Ç·ï¿½Í¸ï¿½ï¿½ï¿½ï¿½É«
+	COLORREF bkColor;	//ï¿½ï¿½ï¿½ï¿½É«
 } OSD_INFO_TXT;
 
 typedef enum 
 {
-	STD_FILE_HEAD =	0,	    		// ÎÄ¼þÍ·
-		STD_VIDEO_I_FRAME = 1,			// ÊÓÆµIÖ¡
-		STD_VIDEO_B_FRAME =	2,			// ÊÓÆµBÖ¡
-		STD_VIDEO_P_FRAME = 3,			// ÊÓÆµPÖ¡
-		STD_VIDEO_BP_FRAME = 4,			// ÊÓÆµBPÖ¡
-		STD_VIDEO_BBP_FRAME	= 5,		// ÊÓÆµBÖ¡BÖ¡PÖ¡
+	STD_FILE_HEAD =	0,	    		// ï¿½Ä¼ï¿½Í·
+		STD_VIDEO_I_FRAME = 1,			// ï¿½ï¿½ÆµIÖ¡
+		STD_VIDEO_B_FRAME =	2,			// ï¿½ï¿½ÆµBÖ¡
+		STD_VIDEO_P_FRAME = 3,			// ï¿½ï¿½ÆµPÖ¡
+		STD_VIDEO_BP_FRAME = 4,			// ï¿½ï¿½ÆµBPÖ¡
+		STD_VIDEO_BBP_FRAME	= 5,		// ï¿½ï¿½ÆµBÖ¡BÖ¡PÖ¡
 		STD_VIDEO_J_FRAME = 6,			// Í¼Æ¬Ö¡
-		STD_AUDIO_PACKET = 10,			// ÒôÆµ°ü
+		STD_AUDIO_PACKET = 10,			// ï¿½ï¿½Æµï¿½ï¿½
 }MEDIA_DATA_TYPE;
 
 typedef struct
 {
-	int		nPacketType;				// °üÀàÐÍ,MEDIA_DATA_TYPE
-	char*	pPacketBuffer;				// »º´æÇøµØÖ·
-	unsigned int	dwPacketSize;				// °üµÄ´óÐ¡
+	int		nPacketType;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,MEDIA_DATA_TYPE
+	char*	pPacketBuffer;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+	unsigned int	dwPacketSize;				// ï¿½ï¿½ï¿½Ä´ï¿½Ð¡
 	
-	// ¾ø¶ÔÊ±±ê
-	int		nYear;						// Ê±±ê:Äê		
-	int		nMonth;						// Ê±±ê:ÔÂ
-	int		nDay;						// Ê±±ê:ÈÕ
-	int		nHour;						// Ê±±ê:Ê±
-	int		nMinute;					// Ê±±ê:·Ö
-	int		nSecond;					// Ê±±ê:Ãë
-	unsigned int 	dwTimeStamp;					// Ïà¶ÔÊ±±êµÍÎ»£¬µ¥Î»ÎªºÁÃë	
-	unsigned int   dwFrameNum;             //Ö¡ÐòºÅ
-	unsigned int   dwFrameRate;            //Ö¡ÂÊ
-	unsigned short uWidth;              //Í¼Ïñ¿í¶È
-	unsigned short uHeight;             //Í¼Ïñ¸ß¶È
-	unsigned int   nAudioEncodeType;          //ÒôÆµ±àÂëÀàÐÍIMA	 9 PCM8_VWIS 12 MS_ADPCM 13 G711A 14
-	unsigned int   nBitsPerSample;			//ÒôÆµ²ÉÑùÎ»Éî
-	unsigned int   nSamplesPerSecond;       // ÒôÆµ²ÉÑùÂÊ
-	unsigned int       Reserved[6];            //±£Áô
+	// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	int		nYear;						// Ê±ï¿½ï¿½:ï¿½ï¿½		
+	int		nMonth;						// Ê±ï¿½ï¿½:ï¿½ï¿½
+	int		nDay;						// Ê±ï¿½ï¿½:ï¿½ï¿½
+	int		nHour;						// Ê±ï¿½ï¿½:Ê±
+	int		nMinute;					// Ê±ï¿½ï¿½:ï¿½ï¿½
+	int		nSecond;					// Ê±ï¿½ï¿½:ï¿½ï¿½
+	unsigned int 	dwTimeStamp;					// ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Î»Îªï¿½ï¿½ï¿½ï¿½	
+	unsigned int   dwFrameNum;             //Ö¡ï¿½ï¿½ï¿½
+	unsigned int   dwFrameRate;            //Ö¡ï¿½ï¿½
+	unsigned short uWidth;              //Í¼ï¿½ï¿½ï¿½ï¿½
+	unsigned short uHeight;             //Í¼ï¿½ï¿½ß¶ï¿½
+	unsigned int   nAudioEncodeType;          //ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IMA	 9 PCM8_VWIS 12 MS_ADPCM 13 G711A 14
+	unsigned int   nBitsPerSample;			//ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+	unsigned int   nSamplesPerSecond;       // ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	unsigned int       Reserved[6];            //ï¿½ï¿½ï¿½ï¿½
 } STDH264_PACKET_INFO;
-//ÈËÁ³¿òÎ»ÖÃ£¬¿í¸ßÏà¶ÔÓÚ8192
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8192
 typedef struct AreaRect
 {
 	unsigned short x;		
@@ -341,12 +341,12 @@ typedef struct AreaRect
 
 typedef struct FaceAreaInfo
 {
-	unsigned short frameId;	//Ö¡ÐòºÅ
-	unsigned char areaNum; //ÈËÁ³ÇøÓò¸öÊý
-	AreaRect* pAreaRect;	//ÈËÁ³ÇøÓò¾ßÌåÊý¾Ý
+	unsigned short frameId;	//Ö¡ï¿½ï¿½ï¿½
+	unsigned char areaNum; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	AreaRect* pAreaRect;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }FaceAreaInfo;
 
-// »Øµ÷º¯ÊýÀàÐÍ
+// ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 typedef void (CALLBACK *AudioCaptureCallBack)(LPBYTE pDataBuffer, DWORD DataLength, long nUser);
 typedef void (CALLBACK *DrawCallBack)(LONG nPort,HDC hDc,LONG nUser);
 typedef void (CALLBACK *DecodeCallBack)(LONG nPort, LPCSTR pBuf,LONG nSize,FRAME_INFO * pFrameInfo, LONG nPlayedFrames);
@@ -358,15 +358,15 @@ typedef void (CALLBACK *DemuxCallBack)(LONG nPort, VIDEO_FRAME_INFO *pFrameInfo,
 typedef void (CALLBACK *SourceBufCallBack)(LONG nPort,DWORD nBufSize, LONG nUser);
 typedef void (CALLBACK *ImageSizeChangeCallBack)(LONG nPort, LONG nUser);
 
-typedef void (CALLBACK *CoverFileCallBack) (DWORD CurrentPos, DWORD TotoalPos,long dwUser);//×ª»»½ø¶È
+typedef void (CALLBACK *CoverFileCallBack) (DWORD CurrentPos, DWORD TotoalPos,long dwUser);//×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-//ÐÅÏ¢Ö¡»Øµ÷
+//ï¿½ï¿½Ï¢Ö¡ï¿½Øµï¿½
 typedef void (CALLBACK *InfoFramCallBack)(LONG nPort, LONG nType, LPCSTR pBuf,LONG nSize, LONG nUser);
 
-//ÐÅÏ¢Ö¡»Øµ÷V2ÀàÐÍ
+//ï¿½ï¿½Ï¢Ö¡ï¿½Øµï¿½V2ï¿½ï¿½ï¿½ï¿½
 typedef void (CALLBACK *InfoFramCallBack_V2)(LONG nPort, LONG nType,LONG nSubType, LPCSTR pBuf,LONG nSize, LONG nUser);
 
-//ÒÔÏÂÎª¶ÔÍâ½Ó¿Ú£¬¹©ÓÃ»§×÷¶þ´Î¿ª·¢µ÷ÓÃ
+//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ó¿Ú£ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_OpenFile(LONG nPort, LPCSTR sFileName);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_CloseFile(LONG nPort);
@@ -402,7 +402,7 @@ H264_PLAY_API DWORD CALLMETHOD 	H264_PLAY_GetCurrentFrameNum(LONG nPort);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetStreamOpenMode(LONG nPort,DWORD nMode);
 H264_PLAY_API DWORD CALLMETHOD 	H264_PLAY_GetSdkVersion();
 H264_PLAY_API DWORD CALLMETHOD 	H264_PLAY_GetLastError(LONG nPort);
-//H264_PLAY_RefreshPlayÒÑ²»Ê¹ÓÃ£¬³ÌÐòÄÚ²¿×Ô¶¯Ë¢ÐÂ
+//H264_PLAY_RefreshPlayï¿½Ñ²ï¿½Ê¹ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½Ô¶ï¿½Ë¢ï¿½ï¿½
 H264_PLAY_API BOOL  CALLMETHOD 	H264_PLAY_RefreshPlay(LONG nPort);
 H264_PLAY_API BOOL  CALLMETHOD 	H264_PLAY_SetOverlayMode(LONG nPort,BOOL bOverlay,COLORREF colorKey);
 H264_PLAY_API BOOL  CALLMETHOD 	H264_PLAY_GetPictureSize(LONG nPort,LONG *pWidth,LONG *pHeight);
@@ -431,7 +431,7 @@ H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetDisplayType(LONG nPort,LONG nType);
 H264_PLAY_API LONG 	CALLMETHOD 	H264_PLAY_GetDisplayType(LONG nPort);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetDecCBStream(LONG nPort,DWORD nStream);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetDisplayRegion(LONG nPort,DWORD nRegionNum, RECT *pSrcRect, HWND hDestWnd, BOOL bEnable);
-//H264_PLAY_RefreshPlayExÒÑ²»Ê¹ÓÃ£¬³ÌÐòÄÚ²¿×Ô¶¯Ë¢ÐÂ
+//H264_PLAY_RefreshPlayExï¿½Ñ²ï¿½Ê¹ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½Ô¶ï¿½Ë¢ï¿½ï¿½
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_RefreshPlayEx(LONG nPort,DWORD nRegionNum);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_GetRefValue(LONG nPort,BYTE *pBuffer, DWORD *pSize);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetRefValue(LONG nPort,BYTE *pBuffer, DWORD nSize);
@@ -456,9 +456,9 @@ H264_PLAY_API LONG  CALLMETHOD 	H264_PLAY_CatchPicBuf(LONG nPort, char* pBuf,LON
 
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_StartDataRecord(LONG nPort,  LPCSTR sFileName, LONG nType);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_StopDataRecord(LONG nPort);
-//level 1×îÁ÷³© 7×îÊµÊ±£¬Ä¬ÈÏÎª4
+//level 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 7ï¿½ï¿½ÊµÊ±ï¿½ï¿½Ä¬ï¿½ï¿½Îª4
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_AdjustFluency(LONG nPort, int level);
-//H264_PLAY_AdjustFluencyExÏÖÔÚ²»Ê¹ÓÃ
+//H264_PLAY_AdjustFluencyExï¿½ï¿½ï¿½Ú²ï¿½Ê¹ï¿½ï¿½
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_AdjustFluencyEx(LONG nPort, int time);
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetPlayFPS(LONG nPort, LONG nFPS);
 H264_PLAY_API LONG 	CALLMETHOD 	H264_PLAY_GetPlayFPS(LONG nPort);
@@ -473,54 +473,54 @@ H264_PLAY_API COLORREF 	CALLMETHOD	H264_PLAY_GetColorKey(LONG nPort);
 H264_PLAY_API LONG	CALLMETHOD	H264_PLAY_GetFileHeadLength();
 H264_PLAY_API DWORD CALLMETHOD H264_PLAY_GetCurTimeStamp(LONG nPort);
 
-//ÉèÖÃosdµþ¼ÓÐÅÏ¢,±ØÐëÔÚopenstreamºó£¬playÖ®Ç°ÉèÖÃ£¬·ñÔòÎÞÐ§
+//ï¿½ï¿½ï¿½ï¿½osdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½openstreamï¿½ï¿½playÖ®Ç°ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§
 H264_PLAY_API int CALLMETHOD H264_PLAY_SetOsdTex(LONG nPort, OSD_INFO_TXT * txt);
-//É¾³ýosdµþ¼ÓÐÅÏ¢,nIndexÊÇH264_PLAY_SetOsdTexµÄ·µ»ØÖµ
+//É¾ï¿½ï¿½osdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,nIndexï¿½ï¿½H264_PLAY_SetOsdTexï¿½Ä·ï¿½ï¿½ï¿½Öµ
 H264_PLAY_API int CALLMETHOD H264_PLAY_DeleteOsdTex(LONG nPort, int nIndex);
-//H264Â¼ÏñÎÄ¼þ×ªAviÂ¼ÏñÎÄ¼þ
+//H264Â¼ï¿½ï¿½ï¿½Ä¼ï¿½×ªAviÂ¼ï¿½ï¿½ï¿½Ä¼ï¿½
 H264_PLAY_API int CALLMETHOD H264_PLAY_ConvertFile(const char* pSourceFile,const char* pDestFile,  LONG nType, CoverFileCallBack coverPosCallback, DWORD dwUser);
 
-//ÐÅÏ¢Ö¡»Øµ÷
+//ï¿½ï¿½Ï¢Ö¡ï¿½Øµï¿½
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetInfoFrameCallBack(LONG nPort, InfoFramCallBack pProc, LONG nUser);
 
-//Ö»²¥·ÅIÖ¡
+//Ö»ï¿½ï¿½ï¿½ï¿½IÖ¡
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_OnlyIFrame(LONG nPort, bool bPlayOnlyIFrame);
 
-//±ê×¼H264Êý¾ÝÐ´Èë
+//ï¿½ï¿½×¼H264ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½
 H264_PLAY_API BOOL CALLMETHOD H264_PLAY_InputStdH264Data(LONG nPort,STDH264_PACKET_INFO *infor);
 
-//ÐÅÏ¢Ö¡»Øµ÷V2
+//ï¿½ï¿½Ï¢Ö¡ï¿½Øµï¿½V2
 H264_PLAY_API BOOL 	CALLMETHOD 	H264_PLAY_SetInfoFrameCallBack_V2(LONG nPort, InfoFramCallBack_V2 pProc, LONG nUser);
 
-/// ²¥·Å²ÎÊýÀàÐÍ
+/// ï¿½ï¿½ï¿½Å²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 enum PLAY_PARAM_TYPE
 {
 	PLAY_PARAM_OrgRate = 0,
 	PLAY_PARAM_Render,
 };
 
-//°´Ô­Ê¼±ÈÀý²¥·Å
+//ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 typedef struct _H264_PLAY_ORG_RATE
 {
-	int bOrgRate;//0ÊÇÆÌÂúÕû¸ö´°¿Ú£¬1°´Ô­Ê¼±ÈÀýÏÔÊ¾
+	int bOrgRate;//0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½1ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 }H264_PLAY_ORG_RATE;
 
 typedef struct _H264_PLAY_Render
 {
 	int bEnable;
 }H264_PLAY_Render;
-//ÉèÖÃ²¥·Å²ÎÊý£¬µ±iTypeÎªPLAY_PARAM_OrgRate£¬pParam´«Èë½á¹¹ÌåH264_PLAY_ORG_RATE
+//ï¿½ï¿½ï¿½Ã²ï¿½ï¿½Å²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iTypeÎªPLAY_PARAM_OrgRateï¿½ï¿½pParamï¿½ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½H264_PLAY_ORG_RATE
 H264_PLAY_API BOOL CALLMETHOD H264_PLAY_SetParam(LONG nPort, PLAY_PARAM_TYPE iType, VOID * pParam);
 
 H264_PLAY_API BOOL CALLMETHOD H264_PLAY_RenderYUV420(LONG nPort,unsigned char* pData, int width, int height);
 
-//´°¿Ú×î´ó»¯Ê±Ê¹ÓÃ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½ï¿½
 H264_PLAY_API BOOL CALLMETHOD H264_PLAY_SetMaxWnd(LONG nPort, bool bMax);
 
-//ÊÇ·ñ¿ªÆô½µÔë¹¦ÄÜ
+//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ë¹¦ï¿½ï¿½
 H264_PLAY_API BOOL CALLMETHOD H264_PLAY_OpenNoiseSuppression(LONG nPort, bool bOpen);
 
-//ÉèÖÃ½µÔëµÈ¼¶(Lv0-Lv3)
+//ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½È¼ï¿½(Lv0-Lv3)
 H264_PLAY_API BOOL CALLMETHOD H264_PLAY_SetNoiseSuppressionLevel(LONG nPort, int nlevel);
 
 #endif

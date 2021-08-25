@@ -26,7 +26,8 @@ using  std::wstring;
 #include "H264Play.h"
 #pragma comment (lib, "H264Play.lib") 
 
-#define DIB_BUFFER_SIZE 10000000 //¶¨Òå×¥È¡Í¼ÏñµÄÄÚÔÚ´óÐ¡, 10MB
+#define BUFSIZE 1000000
+#define DIB_BUFFER_SIZE 10000000 //ï¿½ï¿½ï¿½ï¿½×¥È¡Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ð¡, 10MB
 
 // CCPosVideoDemoDlg dialog
 
@@ -126,7 +127,7 @@ BOOL CCPosVideoDemoDlg::InitSDK()
 	//initialize
 	BOOL bResult = H264_DVR_Init(DisConnectBackCallFunc, (DWORD)this);
 
-	//he messages received in SDK from DVR which need to upload£¬ such as alarm information£¬diary information£¬may do through callback function
+	//he messages received in SDK from DVR which need to uploadï¿½ï¿½ such as alarm informationï¿½ï¿½diary informationï¿½ï¿½may do through callback function
 	H264_DVR_SetDVRMessCallBack(MessCallBack, (DWORD)this);
 
 	H264_DVR_SetConnectTime(1000, 3);
@@ -165,26 +166,28 @@ BOOL CCPosVideoDemoDlg::OnInitDialog()
 	LPWSTR* szAarglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
 	CString strArg1(szAarglist[0]);
 	CString strArg2(szAarglist[1]);
-	CString strArg3(szAarglist[2]);
-	CString strArg4(szAarglist[3]);
+	//CString strArg3(szAarglist[2]);
+	//CString strArg4(szAarglist[3]);
 	CT2CA psz_app(strArg1);
-	CT2CA psz_ipv4(strArg2);
-	CT2CA psz_port(strArg3);
-	CT2CA psz_rtsp_url(strArg4);
+	CT2CA psz_rtsp_url(strArg2);
+	//CT2CA psz_ipv4(strArg3);
+	//CT2CA psz_port(strArg4);
 	std::string exeName(psz_app);
-	std::string py_ip(psz_ipv4);
-	std::string py_port(psz_port);
+	//std::string py_ip(psz_ipv4);
+	//std::string py_port(psz_port);
 	std::string ipcam_ip(psz_rtsp_url);
 	char buff[100];
-	sprintf_s(buff, "szAarglist[0]=%s,%s,%s,%s length %d\n", szAarglist[0], szAarglist[1], szAarglist[2], szAarglist[3], nArgs);
+	sprintf_s(buff, "szAarglist[0]=%s,%s,%s,%s length %d\n", szAarglist[0], szAarglist[1], 
+		//szAarglist[2], szAarglist[3], 
+		nArgs);
 	debug(buff);
-	m_edit_pyIP.SetWindowTextW(s2ws(py_ip).c_str());
-	m_edit_pyPort.SetWindowTextW(s2ws(py_port).c_str());
+	//m_edit_pyIP.SetWindowTextW(s2ws(py_ip).c_str());
+	//m_edit_pyPort.SetWindowTextW(s2ws(py_port).c_str());
 	m_edit_url.SetWindowTextW(s2ws(ipcam_ip).c_str());
 	
 	InitSDK();
 
-
+	OnBnClickedBPreview();
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -232,10 +235,100 @@ void CCPosVideoDemoDlg::ReConnect(LONG lLoginID, char *pchDVRIP, LONG nDVRPort)
 }
 
 
-void CCPosVideoDemoDlg::sendFrameLoop(LPVOID lpParam)
-{
+void CCPosVideoDemoDlg::sendFrameLoop(LPVOID lpParam) {
+
+	char buff1[100];
+	sprintf_s(buff1, "sendFrameLoop\n");
+	debug(buff1);
 	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)lpParam;
 
+	char buff[256] = { 0 };
+	char* input = buff;
+	HANDLE hPipe = INVALID_HANDLE_VALUE;
+	BOOL   fConnected = FALSE;
+	HANDLE hHeap = GetProcessHeap();
+	char* pchPipeRead = (char*)HeapAlloc(hHeap, 0, DIB_BUFFER_SIZE);
+	char* pchPipeWrite = (char*)HeapAlloc(hHeap, 0, DIB_BUFFER_SIZE);
+	DWORD cbBytesRead = 0, cbReplyBytes = 0, cbWritten = 0;
+	BOOL fSuccess = FALSE;
+
+
+	CString strip;
+	m_edit_url.GetWindowTextW(strip);
+
+	CString annotation;
+	annotation.Format(_T("\\\\.\\pipe\\%s"), strip);
+
+	//sprintf(input, "client");
+	//pipes server running
+	while (true) {
+		if (pchPipeRead == NULL || pchPipeWrite == NULL) {
+			printf("memory error\n");
+			break;
+		}
+		// named pipes Begin
+		printf("named pipes Begin \n");
+		// printf(" CreateNamedPipe \n");
+
+		sprintf_s(buff1, "CreateNamedPipe\n");
+		debug(buff1);
+		hPipe = CreateNamedPipe(
+			annotation,   // pipe name 
+			PIPE_ACCESS_DUPLEX,
+			PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,              // no sharing 
+			1,
+			BUFSIZE,
+			BUFSIZE,
+			0,
+			NULL);          // no template file
+		if (hPipe != INVALID_HANDLE_VALUE) {
+			printf("Pipe Server Waiting for Client  ");
+			fConnected = ConnectNamedPipe(hPipe, NULL) ? TRUE : (GetLastError() == ERROR_PIPE_CONNECTED);
+			if (!fConnected) {
+				printf("client connect error \n");
+				CloseHandle(hPipe);
+				hPipe = INVALID_HANDLE_VALUE;
+				continue;
+			}
+		} else {
+			printf(" named pipes create failed \n");
+			continue;
+		}
+		printf(" named pipes Create Success \n");
+		while (true) {
+			// char* buf = 0;
+			// buf = new char[DIB_BUFFER_SIZE];
+			int size = 0;
+			debug("CaptureBmpToRam");
+			size = CaptureBmpToRam(pchPipeWrite, DIB_BUFFER_SIZE);
+
+
+			sprintf_s(buff1, "WriteFile\n");
+			debug(buff1);
+			fSuccess = WriteFile(
+				hPipe,        // handle to pipe 
+				pchPipeWrite,     // buffer to write from 
+				cbReplyBytes, // number of bytes to write 
+				&cbWritten,   // number of bytes written 
+				NULL);        // not overlapped I/O 
+			if (!fSuccess || cbReplyBytes != cbWritten) {
+				printf("named pipes WriteFile failed, GLE=%d.\n", GetLastError());
+				break;
+			}
+			//flush WriteFile
+			FlushFileBuffers(hPipe);
+		}
+		DisconnectNamedPipe(hPipe);
+		CloseHandle(hPipe);
+		hPipe = INVALID_HANDLE_VALUE;
+		printf("named pipes client complete\n");
+	}
+	printf("named pipes server exit\n");
+	if (pchPipeRead != NULL) HeapFree(hHeap, 0, pchPipeRead);
+	if (pchPipeWrite != NULL) HeapFree(hHeap, 0, pchPipeWrite);
+
+	// socket send image logic
+	/*
 	CString strUrl;
 	CString strPort;
 	m_edit_pyIP.GetWindowTextW(strUrl);
@@ -265,7 +358,6 @@ void CCPosVideoDemoDlg::sendFrameLoop(LPVOID lpParam)
 		//debug("setsockopt");
 		setsockopt(sockClient, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeoutRecv, sizeof(timeoutRecv));
 		setsockopt(sockClient, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeoutRecv, sizeof(timeoutRecv));
-
 		debug("Connect to Python");
 		int iResult = connect(sockClient, (SOCKADDR*)&addrServer, sizeof(SOCKADDR));
 		Sleep(3);
@@ -336,11 +428,17 @@ void CCPosVideoDemoDlg::sendFrameLoop(LPVOID lpParam)
 		closesocket(sockClient);
 		shutdown(sockClient, SD_SEND);
 	}
+	*/
 }
 
 DWORD WINAPI CCPosVideoDemoDlg::SendFrameThread(LPVOID lpParam)
 {
 	CCPosVideoDemoDlg* pThis = (CCPosVideoDemoDlg*)lpParam;
+
+	char buff[100];
+	sprintf_s(buff, "SendFrameThread\n");
+	pThis->debug(buff);
+
 	while (1) {
 		pThis->sendFrameLoop(lpParam);
 	}
@@ -350,9 +448,13 @@ DWORD WINAPI CCPosVideoDemoDlg::SendFrameThread(LPVOID lpParam)
 
 void CCPosVideoDemoDlg::OnBnClickedBPreview()
 {
+
+	char buff[100];
+	sprintf_s(buff, "OnBnClickedBPreview\n");
+	debug(buff);
 	//m_check_coud_id
-	CString strip;
 	int port = 34567;
+	CString strip;
 	m_edit_url.GetWindowTextW(strip);
 
 
@@ -377,7 +479,7 @@ void CCPosVideoDemoDlg::OnBnClickedBFrame()
 		if (dlgOpen.DoModal() == IDOK)
 		{
 			CString strFile = dlgOpen.GetPathName();
-			//±£´æµ½ÎÄ¼þÖÐ
+			//ï¿½ï¿½ï¿½æµ½ï¿½Ä¼ï¿½ï¿½ï¿½
 			CFile f;
 			BOOL r = FALSE;
 			if (f.Open(strFile, CFile::modeCreate | CFile::modeWrite))
@@ -399,8 +501,8 @@ void CCPosVideoDemoDlg::OnBnClickedBFrame()
 
 
 
-//¼ì²éÓÃ»§ÃûÃÜÂëµÈÊÇ·ñ¿ÉÒÔµÇÂ¼³É¹¦
-//bCloud 1-ÔÆipµÇÂ¼
+//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ôµï¿½Â¼ï¿½É¹ï¿½
+//bCloud 1-ï¿½ï¿½ipï¿½ï¿½Â¼
 int CCPosVideoDemoDlg::CameraLogin(CString strIP, int nPort, CString strUserName, CString strPassword, int bCloud)
 {
 	H264_DVR_DEVICEINFO OutDev;
@@ -419,8 +521,8 @@ int CCPosVideoDemoDlg::CameraLogin(CString strIP, int nPort, CString strUserName
 	m_bCloudId = bCloud;
 
 
-	//ÉèÖÃ³¢ÊÔÁ¬½ÓÉè±¸´ÎÊýºÍµÈ´ýÊ±¼ä
-	H264_DVR_SetConnectTime(3000, 1);//ÉèÖÃ³¢ÊÔÁ¬½Ó1´Î£¬µÈ´ýÊ±¼ä3s
+	//ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ÍµÈ´ï¿½Ê±ï¿½ï¿½
+	H264_DVR_SetConnectTime(3000, 1);//ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Î£ï¿½ï¿½È´ï¿½Ê±ï¿½ï¿½3s
 	long lLogin = 0;
 	if (m_bCloudId)
 	{
@@ -486,7 +588,7 @@ int CCPosVideoDemoDlg::CameraLogin(CString strIP, int nPort, CString strUserName
 	}
 
 
-	H264_DVR_SetupAlarmChan(lLogin);//×¢²áµÇÂ¼idµ½±¨¾¯ÏûÏ¢, ²úÉú¾¯±¨Ê±·¢µ½ÏàÓ¦µÄµÇÂ¼Éè±¸ÉÏ
+	H264_DVR_SetupAlarmChan(lLogin);//×¢ï¿½ï¿½ï¿½Â¼idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Äµï¿½Â¼ï¿½è±¸ï¿½ï¿½
 
 
 	if (lLogin > 0)
@@ -526,7 +628,7 @@ void CCPosVideoDemoDlg::StopRealPlay()
 void __stdcall videoInfoFramCallback(LONG nPort, LONG nType, LPCSTR pBuf, LONG nSize, LONG nUser)
 {
 	CCPosVideoDemoDlg *pThis = (CCPosVideoDemoDlg*)nUser;
-	//ÊÕµ½ÐÅÏ¢Ö¡, 0x03 ´ú±íGPRSÐÅÏ¢
+	//ï¿½Õµï¿½ï¿½ï¿½Ï¢Ö¡, 0x03 ï¿½ï¿½ï¿½ï¿½GPRSï¿½ï¿½Ï¢
 	if (nType == 0x03)
 	{
 		//pThis->m_strInfoFrame[nPort] = pBuf;
@@ -544,7 +646,7 @@ int __stdcall RealVideoDataCallBack(long lRealHandle,
 {
 	CCPosVideoDemoDlg *pDataChnl = (CCPosVideoDemoDlg*)dwUser;
 
-	//°ÑÔ­Ê¼Êý¾ÝÊäÈë½âÂëÆ÷½âÂë
+	//ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	H264_PLAY_InputData(pDataChnl->m_nDecodeHandle, pBuffer, lbufsize);
 
 	return 1;
@@ -559,7 +661,7 @@ int CCPosVideoDemoDlg::ConnectRealPlay(int nIndex, bool bOsd, int nChannel, CStr
 
 	if (m_LoginID <= 0)
 	{
-		login = CameraLogin(strIP, nPort, strUserName, strPassword, bCloud); //µÇÂ¼ºóÒÑµÃµ½m_LoginID
+		login = CameraLogin(strIP, nPort, strUserName, strPassword, bCloud); //ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ÑµÃµï¿½m_LoginID
 		if (login <= 0)
 		{
 			return 0;
@@ -576,19 +678,19 @@ int CCPosVideoDemoDlg::ConnectRealPlay(int nIndex, bool bOsd, int nChannel, CStr
 		BYTE byFileHeadBuf;
 		if (H264_PLAY_OpenStream(m_videoIndex, &byFileHeadBuf, 1, SOURCE_BUF_MIN * 50))
 		{
-			//ÉèÖÃÐÅÏ¢Ö¡»Øµ÷
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ö¡ï¿½Øµï¿½
 			H264_PLAY_SetInfoFrameCallBack(m_videoIndex, videoInfoFramCallback, (DWORD)this);
 
-			//µþ¼ÓosdÐÅÏ¢
+			//ï¿½ï¿½ï¿½ï¿½osdï¿½ï¿½Ï¢
 			if (bOsd)
 			{
 				
 			}
 			else
 			{
-				//ÉèÖÃosdµþ¼Ó»Øµ÷
+				//ï¿½ï¿½ï¿½ï¿½osdï¿½ï¿½ï¿½Ó»Øµï¿½
 				H264_PLAY_RigisterDrawFun(m_videoIndex, drawVideoOSDCall, (DWORD)this);
-				//OSdÐÅÏ¢ÉèÖÃ£¬ µ¥Í¨µÀ
+				//OSdï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ã£ï¿½ ï¿½ï¿½Í¨ï¿½ï¿½
 				SDK_OSDInfo Osd;
 				Osd.index = 1;
 				Osd.nChannel = nChannel;
@@ -600,11 +702,11 @@ int CCPosVideoDemoDlg::ConnectRealPlay(int nIndex, bool bOsd, int nChannel, CStr
 			}
 
 			H264_PLAY_SetStreamOpenMode(m_videoIndex, STREAME_REALTIME);
-			//Ö»²¥·ÅIÖ¡,¿É½µµÍcpuÊ¹ÓÃÂÊ
+			//Ö»ï¿½ï¿½ï¿½ï¿½IÖ¡,ï¿½É½ï¿½ï¿½ï¿½cpuÊ¹ï¿½ï¿½ï¿½ï¿½
 			//H264_PLAY_OnlyIFrame(m_nIndex, true);
 			//	H264_PLAY_SetDisplayCallBack(m_nIndex, DisplayCallBackFun, (LONG)this);
 			H264_PLAY_SetDisplayCallBack(m_videoIndex, NULL, NULL);
-			//H264_PLAY_SetDecCallBack(m_nIndex, nProc);//ÉèÖÃ½âÂë»Øµ÷, ÉèÖÃºóÔÚ»Øµ÷ÖÐ×Ô¼º½âÂë
+			//H264_PLAY_SetDecCallBack(m_nIndex, nProc);//ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½Øµï¿½, ï¿½ï¿½ï¿½Ãºï¿½ï¿½Ú»Øµï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (H264_PLAY_Play(m_videoIndex, m_videoWnd))
 			{
 				m_nDecodeHandle = m_videoIndex;
@@ -614,7 +716,7 @@ int CCPosVideoDemoDlg::ConnectRealPlay(int nIndex, bool bOsd, int nChannel, CStr
 	H264_DVR_CLIENTINFO playstru;
 
 	playstru.nChannel = nChannel;
-	playstru.nStream = 0;//0Ö÷Âë£¬1×ÓÂë
+	playstru.nStream = 0;//0ï¿½ï¿½ï¿½ë£¬1ï¿½ï¿½ï¿½ï¿½
 	playstru.nMode = 0;
 	m_iPlayhandle = H264_DVR_RealPlay(m_LoginID, &playstru);
 	if (m_iPlayhandle <= 0)
@@ -626,7 +728,7 @@ int CCPosVideoDemoDlg::ConnectRealPlay(int nIndex, bool bOsd, int nChannel, CStr
 	{
 		//set callback to decode receiving data
 
-		//ÉèÖÃÔ­Ê¼Êý¾Ý»Øµ÷, ÄÃµ½Êý¾ÝºóÊäÈëµ½½âÂëÆ÷½âÂë
+		//ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½Ý»Øµï¿½, ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ýºï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		H264_DVR_SetRealDataCallBack(m_iPlayhandle, RealVideoDataCallBack, (long)this);
 
 		//H264_DVR_MakeKeyFrame(pDev->lLoginID, nChannel, 0);
@@ -672,12 +774,12 @@ int CCPosVideoDemoDlg::CaptureBmpToRam(char *pBuf, int len)
 		LONG width = 0;
 		LONG height = 0;
 		char c = 0;
-		lRetLen = H264_PLAY_CatchPicBuf(m_nDecodeHandle, &c, 0, &width, &height, 0);//×¥È¡BMPÍ¼Ïñµ½ÄÚ´æ
-		int dib_length = width * height * 3 + 54;//BMPÍ¼ÏñµÄ´æ´¢¿Õ¼ä
+		lRetLen = H264_PLAY_CatchPicBuf(m_nDecodeHandle, &c, 0, &width, &height, 0);//×¥È¡BMPÍ¼ï¿½ï¿½ï¿½Ú´ï¿½
+		int dib_length = width * height * 3 + 54;//BMPÍ¼ï¿½ï¿½Ä´æ´¢ï¿½Õ¼ï¿½
 
-		//H264_PLAY_CatchPic(m_nPlaydecHandle, filename, 0))//Ö±½Ó×¥È¡µ½ÎÄ¼þ ntype:0-bmp, 1-jpg
-		lRetLen = H264_PLAY_CatchPicBuf(m_nDecodeHandle, pBuf, dib_length, &width, &height, 0);//×¥È¡BMPÍ¼Ïñµ½ÄÚ´æ
-		if (lRetLen > 0)//·µ»Ø´æ´¢´óÐ¡
+		//H264_PLAY_CatchPic(m_nPlaydecHandle, filename, 0))//Ö±ï¿½ï¿½×¥È¡ï¿½ï¿½ï¿½Ä¼ï¿½ ntype:0-bmp, 1-jpg
+		lRetLen = H264_PLAY_CatchPicBuf(m_nDecodeHandle, pBuf, dib_length, &width, &height, 0);//×¥È¡BMPÍ¼ï¿½ï¿½ï¿½Ú´ï¿½
+		if (lRetLen > 0)//ï¿½ï¿½ï¿½Ø´æ´¢ï¿½ï¿½Ð¡
 		{
 			
 		}

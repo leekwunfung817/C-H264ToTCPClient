@@ -26,9 +26,9 @@ public:
 	void StopRealPlay();
 	void Disconnct();
 	int CaptureBmpToRam(char *pBuf, int len);
-	//char *m_capture_dib_buffer;//×¥Í¼»º³å
-	//int m_capture_dib_buffer_len;//»º³åÄÚ´æ´óÐ¡
-	//int m_capture_dib_len;//×¥µ½µÄÍ¼ÏñÊµ¼Ê´óÐ¡
+	//char *m_capture_dib_buffer;//×¥Í¼ï¿½ï¿½ï¿½ï¿½
+	//int m_capture_dib_buffer_len;//ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ð¡
+	//int m_capture_dib_len;//×¥ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Êµï¿½Ê´ï¿½Ð¡
 
 
 	int m_videonTotalChannel;
@@ -46,8 +46,8 @@ public:
 	char  m_videoPsw[33];			//pass word
 	unsigned short  m_videoPort;				//port number
 
-	char  m_videoCloud;//1±íÊ¾ipµØÖ·ÎªÔÆid
-	HWND  m_videoWnd;//´°¿Ú¾ä±ú
+	char  m_videoCloud;//1ï¿½ï¿½Ê¾ipï¿½ï¿½Ö·Îªï¿½ï¿½id
+	HWND  m_videoWnd;//ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½
 
 
 // Dialog Data
@@ -74,7 +74,7 @@ public:
 	CEdit m_edit_pyIP;
 	CEdit m_edit_pyPort;
 	CEdit m_edit_debug;
-	DWORD m_dwSenderThreadId; //²¥·ÅÏß³ÌID
+	DWORD m_dwSenderThreadId; //ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ID
 	void CCPosVideoDemoDlg::debug(const std::string& msg);
 	void CCPosVideoDemoDlg::sendFrameLoop(LPVOID lpParam);
 	static DWORD WINAPI SendFrameThread(LPVOID lpParam);
